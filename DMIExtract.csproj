@@ -1,0 +1,45 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <StartupObject>DMIExtract.Program</StartupObject>
+    <Authors>Bobbahbrown</Authors>
+    <Company>MelonMesa</Company>
+    <Copyright>Copyright (c) 2019 MelonMesa</Copyright>
+    <PackageProjectUrl>https://melonmesa.com</PackageProjectUrl>
+    <Version>1.0.1</Version>
+    <RepositoryUrl>github.com/bobbahbrown/DMIExtract</RepositoryUrl>
+    <RepositoryType>Git</RepositoryType>
+    <Configurations>Debug;Release;WinX64</Configurations>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DebugType>none</DebugType>
+    <DebugSymbols>false</DebugSymbols>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='WinX64|AnyCPU'">
+    <DebugType>none</DebugType>
+    <DebugSymbols>false</DebugSymbols>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Submodules\**" />
+    <EmbeddedResource Remove="Submodules\**" />
+    <None Remove="Submodules\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="Submodules\DMISharp\DMISharp.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommandLineParser" Version="2.4.3" />
+  </ItemGroup>
+  
+  <Target Name="CopyClrCompressionDll" AfterTargets="Publish" Condition="'$(Configuration)'=='WinX64'">
+    <Copy SourceFiles="$(IlcPath)\framework\clrcompression.dll" DestinationFolder="$(PublishDir)" />
+  </Target>
+
+</Project>
