@@ -28,6 +28,8 @@ namespace DMIExtract
             public bool NoDMIFolders { get; set; }
             [Option('f', "noformat", HelpText = "Disable exporting files to seperate PNG and GIF folders")]
             public bool NoFormatFolders { get; set; }
+            [Option ('n', "nogframes", HelpText = "Disable exporting frames from animated files when outputting PNG files.")]
+            public bool NoGifFrames { get; set; }
             [Value(0, Required = true, HelpText = "Specify a file or files to export from.", MetaName = "File[s]")]
             public IEnumerable<string> Files { get; set; }
 
@@ -37,6 +39,7 @@ namespace DMIExtract
                 get
                 {
                     yield return new Example("Extract all frames and animations from DMI file", new Options { Files = new List<string>() { "input.dmi" }, ExportGIF = true, ExportPNG = true });
+                    yield return new Example("Extract all non-animated frames from a DMI file", new Options { Files = new List<string>() { "input.dmi" }, NoGifFrames = true, ExportPNG = true });
                     yield return new Example("Extract only animations from some DMI files", new Options { Files = new List<string>() { "inputA.dmi", "inputB.dmi" }, ExportGIF = true });
                     yield return new Example("Extract only frames from a DMI file without format folders [./png/..., ./gif/...]", new Options { Files = new List<string>() { "input.dmi" }, ExportPNG = true, NoFormatFolders = true });
                     yield return new Example("Extract animations from some DMI files, without individual DMI folders ['bulk export']", new Options { Files = new List<string>() { "inputA.dmi", "inputB.dmi" }, ExportGIF = true, NoDMIFolders = true });
@@ -122,7 +125,7 @@ namespace DMIExtract
                     foreach (var state in dmi.States)
                     {
                         // Exporting PNGs
-                        if (args.ExportPNG)
+                        if (args.ExportPNG && (!state.IsAnimated() || !args.NoGifFrames))
                         {
                             if (state.Frames == 1)
                             {
