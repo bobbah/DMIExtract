@@ -110,6 +110,10 @@ namespace DMIExtract
                 {
                     Directory.CreateDirectory($"{outputBase}/png/");
                 }
+                else
+                {
+                    Directory.CreateDirectory($"{outputBase}");
+                }
 
                 // Safely handle the DMIFile object to allow for proper disposal.
                 using (var dmi = new DMIFile(file))
