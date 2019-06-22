@@ -30,6 +30,8 @@ namespace DMIExtract
             public bool NoFormatFolders { get; set; }
             [Option ('n', "nogframes", HelpText = "Disable exporting frames from animated files when outputting PNG files.")]
             public bool NoGifFrames { get; set; }
+            [Option ('e', "exportnames", HelpText = "Exports state names from a DMI file to an accompanying TXT file.")]
+            public bool ExportStateNames { get; set; }
             [Value(0, Required = true, HelpText = "Specify a file or files to export from.", MetaName = "File[s]")]
             public IEnumerable<string> Files { get; set; }
 
@@ -121,9 +123,17 @@ namespace DMIExtract
                 // Safely handle the DMIFile object to allow for proper disposal.
                 using (var dmi = new DMIFile(file))
                 {
+                    var stateNames = new List<string>();
+                    
                     // Iterate through each state [icon] in the DMI file.
                     foreach (var state in dmi.States)
                     {
+                        // Collect state name
+                        if (args.ExportStateNames)
+                        {
+                            stateNames.Add(state.Name);
+                        }
+                        
                         // Exporting PNGs
                         if (args.ExportPNG && (!state.IsAnimated() || !args.NoGifFrames))
                         {
@@ -186,6 +196,16 @@ namespace DMIExtract
                                     gifs[dir].Save($"{outputBase}{(!args.NoFormatFolders ? "/gif" : "")}{(args.NoDMIFolders ? $"/{fname}_" : "/")}{state.Name}_D{dir}.gif");
                                     gifs[dir].Dispose();
                                 }
+                            }
+                        }
+                    }
+
+                    if (args.ExportStateNames)
+                    {
+                        using (var nameFile = new StreamWriter($"{outputBase}/StateNames.txt"))
+                        {
+                            foreach (var sn in stateNames) {
+                                nameFile.WriteLine($"{sn}");
                             }
                         }
                     }
