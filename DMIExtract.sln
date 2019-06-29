@@ -5,8 +5,6 @@ VisualStudioVersion = 16.0.28809.33
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DMIExtract", "DMIExtract.csproj", "{F83ED8F6-4C8C-44C4-896C-B09AA3302733}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DMISharp", "Submodules\DMISharp\DMISharp.csproj", "{A534D169-1C4A-47F2-876B-91E2A1831B04}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -20,12 +18,6 @@ Global
 		{F83ED8F6-4C8C-44C4-896C-B09AA3302733}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F83ED8F6-4C8C-44C4-896C-B09AA3302733}.WinX64|Any CPU.ActiveCfg = WinX64|Any CPU
 		{F83ED8F6-4C8C-44C4-896C-B09AA3302733}.WinX64|Any CPU.Build.0 = WinX64|Any CPU
-		{A534D169-1C4A-47F2-876B-91E2A1831B04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A534D169-1C4A-47F2-876B-91E2A1831B04}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A534D169-1C4A-47F2-876B-91E2A1831B04}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A534D169-1C4A-47F2-876B-91E2A1831B04}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A534D169-1C4A-47F2-876B-91E2A1831B04}.WinX64|Any CPU.ActiveCfg = Release|Any CPU
-		{A534D169-1C4A-47F2-876B-91E2A1831B04}.WinX64|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
